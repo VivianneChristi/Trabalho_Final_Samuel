@@ -34,15 +34,6 @@
   width: 24px;
   height: 24px;
 }
-.navbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Carrois Gothic SC', sans-serif;
-  background-color: #1A1A1A;
-}
-
 
 .navbar_logo {
   width: 100px;
@@ -104,7 +95,6 @@
    
    .fancy .text {
     background: none;
-    font-size: 1.125em;
     line-height: 1.33333em;
     padding-left: 2em;
     display: block;
@@ -127,7 +117,7 @@
    
    .fancy .bottom-key-1 {
     height: 2px;
-    width: 1.5625rem;
+    width: 1.625rem;
     right: 1.875rem;
     bottom: -2px;
     position: absolute;
@@ -318,15 +308,188 @@
 
   }
 
+    /*--------------------------------------------------Início Main--------------------------------------*/
+
+.container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+}
+
+
+
+    /*--------------------------------------------------Fim Main-----------------------------------------*/
+
    /*--------------------------------------------------Início configuração BlogPage----------------------*/
 
 
-
    .imagem_blog{
-    height: 700px;
+    height: 400px;
+    margin-top: 20px;
+    background-image: url(../img/Logo.png) ; 
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-end;
    }
 
-   .imagem_blog img{
-    height: 100%;
-    width: 100%;
+   .titulo_imagem_blog{
+    color: #fff;
+    width: auto;
    }
+
+
+
+
+     /*--------------------------------------------------Fim configuração BlogPage----------------------*/
+    /*--------------------------------------------------Começo buttons Next/Prev----------------------*/
+   .np {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+   }
+   
+   .arrow-main {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    cursor: pointer;
+
+    &.arrow-prev {
+      transform: scaleX(-1);
+    }
+
+    .arrow-span {
+      display: flex;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      z-index: 9;
+      
+      &::before,
+      &::after {
+        content: "";
+        width: 10px;
+        height: 2px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        background:#FFD11A;
+        margin: -1px 0 0 -5px;
+        transform-origin: 9px 50%;
+      }
+      &::before {
+        transform: rotate(-40deg);
+      }
+      &::after {
+        transform: rotate(40deg);
+      }
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: -2px;
+      width: inherit;
+      height: inherit;
+      border-radius: 50%;
+      
+    }
+    svg.arrow-svg {
+      width: inherit;
+      height: inherit;
+      color: #FFD11A;
+      stroke-dashoffset: 126;
+      stroke-dasharray: 126 126 0;
+      transform: rotate(0);
+    }
+
+    &.animate {
+      svg.arrow-svg {
+        animation: strok 0.6s ease forwards 0.5s;
+      }
+      .arrow-span {
+        animation: arrow 1.2s ease forwards;
+        &::before {
+          animation: arrowUp 1.2s ease forwards;
+        }
+        &::after {
+          animation: arrowDown 1.2s ease forwards;
+        }
+      }
+    }
+  }
+
+
+@keyframes strok {
+  50% {
+    transform: rotate(-180deg);
+    stroke-dashoffset: 0;
+  }
+
+  50.1% {
+    transform: rotate(-360deg);
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    transform: rotate(-180deg);
+    stroke-dashoffset: 126;
+  }
+}
+
+@keyframes arrow {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  23% {
+    transform: translateX(17px);
+    opacity: 1;
+  }
+
+  24%,
+  80% {
+    transform: translateX(-22px);
+    opacity: 0;
+  }
+
+  81% {
+    opacity: 1;
+    transform: translateX(-22px);
+  }
+}
+
+@keyframes arrowUp {
+  0%,
+  100% {
+    transform: rotate(-40deg) scaleX(1);
+  }
+
+  20%,
+  80% {
+    transform: rotate(0) scaleX(0.1);
+  }
+}
+
+@keyframes arrowDown {
+  0%,
+  100% {
+    transform: rotate(40deg) scaleX(1);
+  }
+
+  20%,
+  80% {
+    transform: rotate(0) scaleX(0.1);
+  }
+}
