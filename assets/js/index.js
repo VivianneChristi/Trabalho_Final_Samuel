@@ -11,7 +11,9 @@ async function getPersons(page = 1) {
 }
  
 function cards(data) {
+  const main = document.querySelector('main'); // Certifique-se de que o elemento main existe
   main.innerHTML = ""; // Limpar posts antigos
+
   const arrayDatas = data.posts;
   if (arrayDatas.length === 0) {
     const message = document.createElement("p");
@@ -20,21 +22,30 @@ function cards(data) {
     main.appendChild(message);
     return;
   }
-  arrayDatas.forEach((element) => {
+
+  const cardContainer = document.createElement("div");
+  cardContainer.className = "card-container";
+
+  arrayDatas.slice(0, 3).forEach((element) => {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-<div class="banner"><img src="${urlImg + element.imageUrl}" /></div>
-<div class="content">
-<div class="texts">
-<h3 class="name">${element.title}</h3>
-<h5 class="species">${element.content}</h5>
-</div>
-</div>
+        <div class="banner">
+            <img src="${urlImg + element.imageUrl}" alt="Image" />
+        </div>
+        <div class="content">
+            <div class="texts">
+                <h3 class="name">${element.title}</h3>
+                <h5 class="species">${element.content}</h5>
+            </div>
+        </div>
     `;
-    main.appendChild(card);
+    cardContainer.appendChild(card);
   });
+
+  main.appendChild(cardContainer);
 }
+
  
  
 async function loadPage(page) {
@@ -71,3 +82,6 @@ arrows.forEach(function(arrow) {
     }
   });
 });
+
+
+

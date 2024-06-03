@@ -345,7 +345,64 @@
 
 
      /*--------------------------------------------------Fim configuração BlogPage----------------------*/
-    /*--------------------------------------------------Começo buttons Next/Prev----------------------*/
+    
+    /*--------------------------------------------------Começo Cards Imagem----------------------*/
+
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+  }
+  
+  .card-container {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 50px;
+      overflow-x: auto;
+      padding: 100px;
+  }
+  
+  .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      width: 300px;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+  }
+  
+  .card:hover {
+      transform: scale(1.05);
+  }
+  
+  .banner img {
+      max-width: 100%;
+    
+  }
+  
+  .content {
+      padding: 20px;
+  }
+  
+  .texts .name {
+      font-size: 1.5em;
+      margin: 0;
+  }
+  
+  .texts .species {
+      font-size: 1em;
+      color: #777;
+      margin-top: 10px;
+  }
+  
+  .no-images-message {
+      font-size: 1.2em;
+      color: #777;
+      text-align: center;
+      margin-top: 20px;
+  }
+     /*--------------------------------------------------Começo buttons Next/Prev----------------------*/
    .np {
     display: flex;
     align-items: center;
