@@ -48,38 +48,44 @@ function cards(data) {
 
 //--------------------------------------- Postagem ----------------------------------//
 const content = document.getElementById('content');
-
+const form = document.getElementById("form")
+const image = document.getElementById('image');
 const title = document.getElementById('title');
 const btn = document.getElementById('btn')
 
-btn.addEventListener('click', ()=> {
+form.addEventListener('submit', (e)=> {
+  e.preventDefault();
     
     // const userData = JSON.stringify({
     //     title: title.value,
     //     content : content.value,
     // })
-    const image = document.getElementById('image');
     const formData = new FormData();
 
     formData.append('image', image.files[0]);
     formData.append('title', title.value);
     formData.append('content', content.value);
 
-    console.log(title.value)
-    console.log(content.value)
+    // console.log(title.value)
+    // console.log(content.value)
     
-    const userData = JSON.stringify({
-        title : title,
-        content : content,
-        image : formData.get('image')
-    })
+    // const userData = JSON.stringify({
+    //     title : title,
+    //     content : content,
+    //     image : formData.get('image')
+    // })
 
+// console.log("Form DATA===>");
+//     console.log(formData)
+
+//     console.log("Form DATA===>")
 
     fetch("http://10.92.198.38:8080/feed/post", {
-        method: "Post",
+        method: "POST",
         body: formData,
         headers: {
-            'Authorization': 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvYW9AZ21haWwuY29tIiwidXNlcklkIjoiNjY0MjU0YTY0M2VjYTkzOTE3MTI3YTc4IiwiaWF0IjoxNzE1NzA0OTU3LCJleHAiOjE3MTU3MTkzNTd9.meC29AB4xiTIpDykhJrkULSW5_QqmIs1lJpr9MjuU18"
+           // 'Content-Type': 'multipart/form-data',
+            Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhcGhhMTIzNDU2QGdtYWlsLmNvbSIsInVzZXJJZCI6IjY2NjczNDBmZGZmNGI5MDQwMjU5YjBkZiIsImlhdCI6MTcxODA0MTYxMywiZXhwIjoxNzE4MDU2MDEzfQ.vv_1LJiE_n9l47AVAC3Bk7PKI9k5yIiq7bQZePgPK3E"
         },
         
     }).then(result => result.json())
