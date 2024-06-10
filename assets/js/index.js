@@ -92,6 +92,40 @@ form.addEventListener('submit', (e)=> {
     .then(data => console.log(data))
     .catch(err => console.error(err));
 })
+// Função para mostrar o formulário de edição
+window.showEditForm = (id, content) => {
+  editForm.style.display = 'block';
+  editPostId.value = id;
+  editPostContent.value = content;
+};
+
+// Função para excluir um post
+window.deletePost = async (id) => {
+  if (confirm('Tem certeza que deseja excluir este post?')) {
+    await fetch(`https://suaapi.com/posts/${id}`, {
+      method: 'DELETE',
+    });
+    loadPosts();
+  }
+};
+
+// Função para enviar a edição do post
+editPostForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const id = editPostId.value;
+  const content = editPostContent.value;
+
+  await fetch(`https://suaapi.com/posts/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ content }),
+  });
+
+  editForm.style.display = 'none';
+  loadPosts();
+});
 //------------------------------------------ Fim da Postagem -------------------------------//
 async function loadPage(page) {
   const data = await getPersons(page);

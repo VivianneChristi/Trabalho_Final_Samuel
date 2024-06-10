@@ -54,8 +54,6 @@
         </div>
     </div>
 
-   
-    
     <div class="campo_enviar">
         <h1 class="titulos_post">Poste sua imagem aqui</h1>
         <form enctype="multipart/form-data" id="form" class="form_post">
@@ -67,6 +65,21 @@
         <button type="submit" id="btn" class="botao_enviar_post">enviar</button>
         </form>
     </div>
+
+    <div id="editForm" style="display: none;">
+        <h2>Editar Post</h2>
+        <form id="editPostForm">
+          <input type="hidden" id="editPostId">
+          <textarea id="editPostContent" required></textarea>
+          <button type="submit">Salvar</button>
+        </form>
+      </div>
+
+  <div>
+    <h2>Excluir Post</h2>
+    <input type="text" id="deletePostId" placeholder="ID do Post">
+    <button id="deletePostButton">Excluir Post</button>
+  </div>
     
     <main class="container"></main>
     
