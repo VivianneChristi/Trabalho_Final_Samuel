@@ -1,30 +1,87 @@
-//-------------------------------------Slideshow------------------------
-
-let slideIndex = 1;
-showSlides(slideIndex);
-
-// Next/previous controls
-function plusSlides(n) {
-  showSlides(slideIndex += n);
+const main = document.querySelector(".container");
+const urlImg = "http://10.92.198.38:8080/";
+let currentPage = 1;
+const postsPerPage = 3;
+ 
+async function getPersons(page = 1) {
+  const response = await fetch(`http://10.92.198.38:8080/feed/posts?page=${page}&limit=${postsPerPage}`);
+  const posts = await response.json();
+  console.log(posts);
+  return posts;
 }
+ 
+function cards(data) {
+  const main = document.querySelector('main'); // Certifique-se de que o elemento main existe
+  main.innerHTML = ""; // Limpar posts antigos
 
-// Thumbnail image controls
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
+  const arrayDatas = data.posts;
+  if (arrayDatas.length === 0) {
+    const message = document.createElement("p");
+    message.className = "no-images-message";
+    message.textContent = "Não há mais imagens para exibir.";
+    main.appendChild(message);
+    return;
   }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
+
+  const cardContainer = document.createElement("div");
+  cardContainer.className = "card-container";
+
+  arrayDatas.slice(0, 3).forEach((element) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+        <div class="banner">
+            <img src="${urlImg + element.imageUrl}" alt="Image" />
+        </div>
+        <div class="content">
+            <div class="texts">
+                <h3 class="name">${element.title}</h3>
+                <h5 class="species">${element.content}</h5>
+            </div>
+        </div>
+    `;
+    cardContainer.appendChild(card);
+  });
+
+  main.appendChild(cardContainer);
 }
+
+ 
+ 
+async function loadPage(page) {
+  const data = await getPersons(page);
+  cards(data);
+}
+ 
+document.getElementById("nextPage").addEventListener("click", () => {
+  currentPage++;
+  loadPage(currentPage);
+});
+ 
+document.getElementById("prevPage").addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    loadPage(currentPage);
+  }
+});
+ 
+// Carregar a primeira página ao iniciar
+loadPage(currentPage);
+//-----------------------------------------------------------Animação dos Next/Prev---------------------------------------------//
+var arrows = document.querySelectorAll(".arrow-main");
+
+arrows.forEach(function(arrow) {
+  arrow.addEventListener("click", function(e) {
+    e.preventDefault();
+
+    if (!arrow.classList.contains("animate")) {
+      arrow.classList.add("animate");
+      setTimeout(function() {
+        arrow.classList.remove("animate");
+      }, 1600);
+    }
+  });
+});
+
+
+
